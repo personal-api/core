@@ -1,0 +1,56 @@
+{
+  "name": "js-personal-api",
+  "version": "0.0.1",
+  "description": "A personal API for managing my data across various providers.",
+  "homepage": "https://github.com/chrisvogt/js-personal-api#readme",
+  "author": {
+    "name" : "Chris Vogt",
+    "email" : "mail@chrisvogt.me",
+    "url" : "https://www.chrisvogt.me"
+  },
+  "main": "build/index.js",
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf build",
+    "compile": "./node_modules/.bin/babel -d build src",
+    "prepublish": "npm run compile",
+    "prestart": "npm run -s compile",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "start": "node --require dotenv/config build/index.js",
+    "sync:repositories": "npm run build && node --require dotenv/config build/bin/syncAllRepositories.js",
+    "test": "nyc mocha --require babel-register"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url" : "https://github.com/chrisvogt/js-personal-api/issues"
+  },
+  "repository": {
+
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "firebase-functions": "^2.0.4",
+    "lodash": "^4.17.10",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "@octokit/rest": "^15.9.4",
+    "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "firebase-admin": "^6.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "proxyquire": "^2.0.1",
+    "sinon": "^6.1.5"
+  }
+}

@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - lts/*
+  - node
+
+install:
+  - npm install
+  - npm install -g codecov
+
+after_success:
+  - npm run report-coverage

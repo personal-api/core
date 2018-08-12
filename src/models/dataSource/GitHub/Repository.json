@@ -1,0 +1,51 @@
+{
+  "source": {
+    "provider": "github",
+    "repository": "chrisvogt/jquery-recentreads"
+  },
+  "created": "[project.created OR repo.created]2015-10-09T07:10:07Z",
+  "updated": "[repo.updated]2016-06-14T07:39:00Z",
+  "published": true,
+  "tags": [
+    "[project.tags]",
+    "prototype",
+    "unmaintained"
+  ],
+  "tech": [
+    "[project.tech]",
+    "bower",
+    "grunt",
+    "jquery",
+    "sass"
+  ],
+  "description": "[repo.description]A jQuery plugin that renders a recently read widget on a web page using Goodreads data.",
+  "images": [{
+      "type": "[project.images.banner]banner",
+      "url": "https://res.cloudinary.com/chrisvogt/image/upload/v1444770347/projects/recentreads/og-banner.jpg"
+    },
+    {
+      "type": "[project.images.thumbnail]thumbnail",
+      "url": "https://res.cloudinary.com/chrisvogt/image/upload/c_scale,w_150/v1444612976/thumbs/jquery-recentreads.jpg"
+    },
+    {
+      "type": "[project.images.screenshot]screenshot",
+      "url": "https://cdn.rawgit.com/chrisvogt/jquery-recentreads/17bfd329/screenshot.png"
+    }
+  ],
+  "license": "[repo.license]MIT",
+  "links": [{
+      "key": "[project.links.demo]demo",
+      "url": "https://chrisvogt.github.io/jquery-recentreads/demo.html"
+    },
+    {
+      "key": "[project.links.license]license",
+      "url": "https://github.com/chrisvogt/jquery-recentreads/blob/master/LICENSE"
+    },
+    {
+      "key": "[project.links.readme]readme",
+      "url": "https://github.com/chrisvogt/jquery-recentreads/blob/master/readme.md"
+    }
+  ],
+  "name": "[project.meta.displayName]jQuery Recently Read Widget",
+  "slug": "[repo.name]jquery-recentreads"
+}

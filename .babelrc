@@ -1,0 +1,17 @@
+{
+  "env": {
+    "test": {
+      "plugins": [ "istanbul" ]
+    }
+  },
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "current"
+      }
+    }]
+  ],
+  "plugins": [
+    "transform-object-rest-spread"
+  ]
+}
