@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 
 import constants from './constants';
-import corsOptions from './api/_corsOptions';
+import corsOptions from './api/corsOptions';
 import { getProjects, getProjectsWithRepos } from './api/projects';
 import { getRepositories } from './api/repositories';
 
