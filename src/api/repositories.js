@@ -1,4 +1,4 @@
-import * as api from './_base';
+import * as api from './base';
 import * as controller from '../controllers/repositories';
 
 export const getRepositories = (req, res) => {

@@ -22,7 +22,7 @@ const stubExpress = () => {
 
 const index = proxyquire('../src/server.js', {
   'cors': stubCors,
-  './api/_corsOptions': stubCorsOptions,
+  './api/corsOptions': stubCorsOptions,
   './api/projects': {
     stubGetProjects,
     stubGetProjectsWithRepos
