@@ -1,9 +1,8 @@
 import constants from '../constants';
 import { getDocumentById } from '../database/services';
+import { getRepositoryRef } from '../models/project';
 
 const { REPOSITORIES } = constants.COLLECTIONS;
-
-import { getRepositoryRef } from '../models/project';
 
 const joinRepoToProject = async project => {
   const ref = getRepositoryRef(project);
