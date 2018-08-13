@@ -33,7 +33,7 @@ const joinRepoToProject = proxyquire('../../src/helpers/joinRepoToProject.js', {
   '../database/services': services
 }).default;
 
-describe.only('joinRepoToProject helper', async () => {
+describe('joinRepoToProject helper', async () => {
   it('it joins the requested repository', async () => {
     const result = await joinRepoToProject(mockProject);
     expect(result).to.deep.equal({
