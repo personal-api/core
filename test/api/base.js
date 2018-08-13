@@ -5,7 +5,7 @@ import { error, success } from '../../src/api/base';
 
 const sandbox = sinon.createSandbox();
 
-describe.only('API base', () => {
+describe('API base', () => {
   const res = {
     json: () => {},
     status: 0,
