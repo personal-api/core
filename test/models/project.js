@@ -4,15 +4,7 @@ import getProject, {
   getRepositoryProviderId,
   getRepositoryRef
 } from '../../src/models/project';
-
-const projectFixture = {
-  name: 'js-personal-api',
-  repository: {
-    provider: 'github',
-    providerId: 144503664,
-    ref: '1RTQoq4uqT2e8dzoBcGc'
-  }
-};
+import projectFixture from '../_fixtures/project';
 
 describe('model: project getters', () => {
   describe('getProject', () => {

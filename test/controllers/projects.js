@@ -2,14 +2,7 @@ import { expect } from 'chai';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
-const projectFixture = {
-  name: 'js-personal-api',
-  repository: {
-    provider: 'github',
-    providerId: 144503664,
-    ref: '1RTQoq4uqT2e8dzoBcGc'
-  }
-};
+import projectFixture from '../_fixtures/project';
 
 const stubGetAllDocuments = sinon.stub();
 

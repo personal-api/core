@@ -6,7 +6,7 @@ export const getProjects = async (req, res) => {
     const projects = await controller.getProjects();
     api.success(res, { projects });
   } catch (err) {
-    api.error(res, err)
+    api.error(res, err);
   }
 };
 
@@ -15,6 +15,6 @@ export const getProjectsWithRepos = async (req, res) => {
     const projects = await controller.getProjectsWithRepos();
     api.success(res, { projects });
   } catch (err) {
-    api.error(res, err)
+    api.error(res, err);
   }
 };
