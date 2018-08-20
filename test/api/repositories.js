@@ -52,5 +52,17 @@ describe('API: repositories', () => {
         ]
       ]);
     });
+
+    it('returns an error if repositories could not be fetched', async () => {
+      const errorMessage = new Error('It\'s never like the first time, let it go.');
+      stubController.getRepositories.throws(errorMessage);
+      await repositoriesAPI.getRepositories(req, res);
+      expect(stubAPIBase.error.args).to.deep.equal([
+        [
+          res,
+          errorMessage
+        ]
+      ]);
+    });
   });
 });

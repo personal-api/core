@@ -3,6 +3,7 @@ import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
 import projectFixture from '../_fixtures/project';
+import res from '../_fixtures/res';
 
 const sandbox = sinon.createSandbox();
 
@@ -25,11 +26,6 @@ const projectsAPI = proxyquire
 
 describe('API: projects', () => {
   const req = {};
-  const res = {
-    json: {},
-    status: 0,
-    type: {}
-  };
 
   afterEach(() => {
     sandbox.resetHistory();
@@ -53,7 +49,6 @@ describe('API: projects', () => {
       ]);
     });
 
-    // NOTE(cvogt): this passes but throws a warning into the JS console
     it('returns an error if projects could not be fetched', async () => {
       const errorMessage = new Error('This is what I\'ve been waiting for');
       stubController.getProjects.throws(errorMessage);
