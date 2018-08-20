@@ -23,12 +23,12 @@ const projectsAPI = proxyquire
     '../controllers/projects': stubController
   });
 
-describe.only('API: projects', () => {
+describe('API: projects', () => {
   const req = {};
   const res = {
-    json: sandbox.stub(),
+    json: {},
     status: 0,
-    type: sandbox.stub()
+    type: {}
   };
 
   afterEach(() => {
@@ -37,14 +37,14 @@ describe.only('API: projects', () => {
 
   describe('getProjects()', () => {
     it('calls the projects controller to fetch projects', async () => {
-      await projectsAPI.getProjects({}, {});
+      await projectsAPI.getProjects(req, res);
       expect(stubController.getProjects.args).to.deep.equal([[]]);
     });
 
     it('returns a successful API response with projects', async () => {
       const projectsResponse = [ projectFixture ];
       stubController.getProjects.resolves(projectsResponse);
-      await projectsAPI.getProjects({}, {});
+      await projectsAPI.getProjects(req, res);
       expect(stubAPIBase.success.args[1][1]).to.deep.equal({
         projects: projectsResponse
       });
@@ -54,10 +54,10 @@ describe.only('API: projects', () => {
     it.skip('returns an error if projects could not be fetched', async () => {
       const errorMessage = new Error('This is what I\'ve been waiting for');
       stubController.getProjects.throws(errorMessage);
-      await projectsAPI.getProjects({}, {});
+      await projectsAPI.getProjects(req, res);
       expect(stubAPIBase.error.args).to.deep.equal([
         [
-          {},
+          res,
           errorMessage
         ]
       ]);
@@ -66,14 +66,14 @@ describe.only('API: projects', () => {
 
   describe('getProjectsWithRepos()', () => {
     it('calls the projects controller to fetch projects with repos', async () => {
-      await projectsAPI.getProjectsWithRepos({}, {});
+      await projectsAPI.getProjectsWithRepos(req, res);
       expect(stubController.getProjectsWithRepos.args).to.deep.equal([[]]);
     });
 
     it('returns a successful API response with projects and repos', async () => {
       const projectsResponse = [ projectFixture ];
       stubController.getProjectsWithRepos.resolves(projectsResponse);
-      await projectsAPI.getProjectsWithRepos({}, {});
+      await projectsAPI.getProjectsWithRepos(req, res);
       expect(stubAPIBase.success.args[1][1]).to.deep.equal({
         projects: projectsResponse
       });
@@ -82,7 +82,7 @@ describe.only('API: projects', () => {
     it.skip('returns an error if projects with repos could not be fetched', async () => {
       const errorMessage = new Error('This is what I\'ve been waiting for');
       stubController.getProjectsWithRepos.throws(errorMessage);
-      await projectsAPI.getProjectsWithRepos({}, {});
+      await projectsAPI.getProjectsWithRepos(req, res);
       expect(stubAPIBase.error.args).to.deep.equal([
         [
           {},
