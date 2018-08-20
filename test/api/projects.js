@@ -32,7 +32,7 @@ describe('API: projects', () => {
   };
 
   afterEach(() => {
-    sandbox.restore();
+    sandbox.resetHistory();
   });
 
   describe('getProjects()', () => {
@@ -45,13 +45,16 @@ describe('API: projects', () => {
       const projectsResponse = [ projectFixture ];
       stubController.getProjects.resolves(projectsResponse);
       await projectsAPI.getProjects(req, res);
-      expect(stubAPIBase.success.args[1][1]).to.deep.equal({
-        projects: projectsResponse
-      });
+      expect(stubAPIBase.success.args).to.deep.equal([
+        [
+          res,
+          { projects: projectsResponse }
+        ]
+      ]);
     });
 
     // NOTE(cvogt): this passes but throws a warning into the JS console
-    it.skip('returns an error if projects could not be fetched', async () => {
+    it('returns an error if projects could not be fetched', async () => {
       const errorMessage = new Error('This is what I\'ve been waiting for');
       stubController.getProjects.throws(errorMessage);
       await projectsAPI.getProjects(req, res);
@@ -74,18 +77,23 @@ describe('API: projects', () => {
       const projectsResponse = [ projectFixture ];
       stubController.getProjectsWithRepos.resolves(projectsResponse);
       await projectsAPI.getProjectsWithRepos(req, res);
-      expect(stubAPIBase.success.args[1][1]).to.deep.equal({
-        projects: projectsResponse
-      });
+      expect(stubAPIBase.success.args).to.deep.equal([
+        [
+          res,
+          {
+            projects: projectsResponse
+          }
+        ]
+      ]);
     });
 
-    it.skip('returns an error if projects with repos could not be fetched', async () => {
+    it('returns an error if projects with repos could not be fetched', async () => {
       const errorMessage = new Error('This is what I\'ve been waiting for');
       stubController.getProjectsWithRepos.throws(errorMessage);
       await projectsAPI.getProjectsWithRepos(req, res);
       expect(stubAPIBase.error.args).to.deep.equal([
         [
-          {},
+          res,
           errorMessage
         ]
       ]);
