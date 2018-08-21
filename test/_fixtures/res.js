@@ -1,7 +1,7 @@
 const res = {
-  json: {},
+  json: () => {},
   status: 0,
-  type: {}
+  type: () => {}
 };
 
 export default res;
