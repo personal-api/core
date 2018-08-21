@@ -2,16 +2,11 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import { error, success } from '../../src/api/base';
+import res from '../_fixtures/res';
 
 const sandbox = sinon.createSandbox();
 
 describe('API: base', () => {
-  const res = {
-    json: () => {},
-    status: 0,
-    type: () => {}
-  };
-
   beforeEach(() => {
     sandbox.stub(res, 'json');
     sandbox.stub(res, 'type');
