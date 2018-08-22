@@ -25,8 +25,8 @@ const {
     '../helpers/joinRepoToProject': stubJoinRepoToProject,
     '../database/services': {
       getAllDocuments: stubGetAllDocuments,
-    }
-});
+    },
+  });
 
 describe('project controller', () => {
   afterEach(() => {

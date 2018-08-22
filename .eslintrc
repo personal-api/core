@@ -1,6 +1,7 @@
 {
   "env": {
     "es6": true,
+    "mocha": true,
     "node": true
   },
   "extends": ["airbnb-base"],
@@ -9,6 +10,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-await-in-loop": 0
+    "no-await-in-loop": 0,
+    "no-unused-expressions": 0
   }
 }

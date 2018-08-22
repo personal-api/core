@@ -42,7 +42,7 @@ describe('API: repositories', () => {
     });
 
     it('returns a successful API response with repositories', async () => {
-      const repositoriesResponse = [ repositoryFixture ];
+      const repositoriesResponse = [repositoryFixture];
       stubController.getRepositories.resolves(repositoriesResponse);
       await repositoriesAPI.getRepositories(req, res);
       expect(stubAPIBase.success.args).to.deep.equal([

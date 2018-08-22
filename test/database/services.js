@@ -23,7 +23,7 @@ const {
     './': {
       collection: collectionStub,
     },
-});
+  });
 
 describe('database services', async () => {
   afterEach(() => {

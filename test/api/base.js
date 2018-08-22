@@ -39,7 +39,7 @@ describe('API: base', () => {
 
   describe('success template', () => {
     const mockResult = {
-      people: ['Denis Diderot', 'Jean Jacques Rousseau', 'Voltaire']
+      people: ['Denis Diderot', 'Jean Jacques Rousseau', 'Voltaire'],
     };
 
     describe('without data', () => {

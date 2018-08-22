@@ -13,7 +13,7 @@
     "build": "npm run clean && npm run compile",
     "clean": "rimraf build",
     "compile": "./node_modules/.bin/babel -d build src",
-    "lint": "node ./node_modules/eslint/bin/eslint src",
+    "lint": "node ./node_modules/eslint/bin/eslint src test",
     "prepublish": "npm run compile",
     "prestart": "npm run -s compile",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",

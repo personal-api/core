@@ -7,7 +7,7 @@ proxyquire.noCallThru();
 const mockProject = {
   repository: {
     ref: 'abc123',
-  }
+  },
 };
 
 const mockRepository = {
@@ -19,7 +19,7 @@ const mockResult = {
 };
 
 const projects = {
-  getRepositoryRef: sinon.stub().returns(mockProject.repository.ref)
+  getRepositoryRef: sinon.stub().returns(mockProject.repository.ref),
 };
 
 const services = {

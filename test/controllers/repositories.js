@@ -15,7 +15,7 @@ const {
     '../database/services': {
       getAllDocuments: stubGetAllDocuments,
     },
-});
+  });
 
 describe('repositories controller', () => {
   afterEach(() => {
