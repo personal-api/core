@@ -6,7 +6,7 @@ import db from '../database';
 import {
   getName,
   getRepositoryProviderId,
-  getRepositoryRef
+  getRepositoryRef,
 } from '../models/project';
 import { getLastUpdateDate } from '../models/repository';
 import { getDocumentRefById } from '../database/services';
@@ -16,13 +16,13 @@ const {
   APP_NAME,
   COLLECTIONS: {
     PROJECTS,
-    REPOSITORIES
+    REPOSITORIES,
   },
   STRINGS: {
     CREATED_NEW_REPOSITORY,
     SYNCED_NAMED_REPOSITORY,
-    SYNCING_BANNER
-  }
+    SYNCING_BANNER,
+  },
 } = constants;
 
 const syncAllRepositories = async () => {
@@ -31,8 +31,8 @@ const syncAllRepositories = async () => {
 
   console.log(chalk.bgBlueBright(APP_NAME), SYNCING_BANNER);
 
-  projectsRef.get().then(async snapshot => {
-    snapshot.docs.forEach(async doc => {
+  projectsRef.get().then(async (snapshot) => {
+    snapshot.docs.forEach(async (doc) => {
       const project = doc.data();
 
       const name = getName(project);
@@ -50,28 +50,28 @@ const syncAllRepositories = async () => {
           await repositoryRef.set(repository, { merge: true });
           await projectRef.set({
             synced: new Date(),
-            updated: new Date(updatedAt)
+            updated: new Date(updatedAt),
           }, { merge: true });
 
           console.log(
             chalk.bgGreenBright(chalk.black('SUCCESS')),
-            SYNCED_NAMED_REPOSITORY.replace('$NAME', name)
+            SYNCED_NAMED_REPOSITORY.replace('$NAME', name),
           );
         }
 
         if (!ref) {
-          repositoriesRef.add(repository).then(async res => {
+          repositoriesRef.add(repository).then(async (res) => {
             await projectsRef.doc(doc.id).set({
               repository: {
-                ref: res.id
+                ref: res.id,
               },
               synced: new Date(),
-              updated: new Date(updatedAt)
+              updated: new Date(updatedAt),
             }, { merge: true });
 
             console.log(
               chalk.bgGreenBright(chalk.black('SUCCESS')),
-              CREATED_NEW_REPOSITORY.replace('$NAME', name)
+              CREATED_NEW_REPOSITORY.replace('$NAME', name),
             );
           });
         }

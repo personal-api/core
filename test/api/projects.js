@@ -9,19 +9,19 @@ const sandbox = sinon.createSandbox();
 
 const stubAPIBase = {
   error: sandbox.stub(),
-  success: sandbox.stub()
+  success: sandbox.stub(),
 };
 
 const stubController = {
   getProjects: sandbox.stub(),
-  getProjectsWithRepos: sandbox.stub()
+  getProjectsWithRepos: sandbox.stub(),
 };
 
 const projectsAPI = proxyquire
   .noCallThru()
   .load('../../src/api/projects', {
     './base': stubAPIBase,
-    '../controllers/projects': stubController
+    '../controllers/projects': stubController,
   });
 
 describe('API: projects', () => {
@@ -38,14 +38,11 @@ describe('API: projects', () => {
     });
 
     it('returns a successful API response with projects', async () => {
-      const projectsResponse = [ projectFixture ];
+      const projectsResponse = [projectFixture];
       stubController.getProjects.resolves(projectsResponse);
       await projectsAPI.getProjects(req, res);
       expect(stubAPIBase.success.args).to.deep.equal([
-        [
-          res,
-          { projects: projectsResponse }
-        ]
+        [res, { projects: projectsResponse }],
       ]);
     });
 
@@ -53,12 +50,7 @@ describe('API: projects', () => {
       const errorMessage = new Error('This is what I\'ve been waiting for');
       stubController.getProjects.throws(errorMessage);
       await projectsAPI.getProjects(req, res);
-      expect(stubAPIBase.error.args).to.deep.equal([
-        [
-          res,
-          errorMessage
-        ]
-      ]);
+      expect(stubAPIBase.error.args).to.deep.equal([[res, errorMessage]]);
     });
   });
 
@@ -69,16 +61,16 @@ describe('API: projects', () => {
     });
 
     it('returns a successful API response with projects and repos', async () => {
-      const projectsResponse = [ projectFixture ];
+      const projectsResponse = [projectFixture];
       stubController.getProjectsWithRepos.resolves(projectsResponse);
       await projectsAPI.getProjectsWithRepos(req, res);
       expect(stubAPIBase.success.args).to.deep.equal([
         [
           res,
           {
-            projects: projectsResponse
-          }
-        ]
+            projects: projectsResponse,
+          },
+        ],
       ]);
     });
 
@@ -89,8 +81,8 @@ describe('API: projects', () => {
       expect(stubAPIBase.error.args).to.deep.equal([
         [
           res,
-          errorMessage
-        ]
+          errorMessage,
+        ],
       ]);
     });
   });

@@ -7,9 +7,9 @@ import projectFixture from '../_fixtures/project';
 const mockJoinResponse = {
   repository: {
     meta: {
-      name: 'ACME Repository'
-    }
-  }
+      name: 'ACME Repository',
+    },
+  },
 };
 
 const sandbox = sinon.createSandbox();
@@ -18,15 +18,15 @@ const stubJoinRepoToProject = sandbox.stub().returns(mockJoinResponse);
 
 const {
   getProjects,
-  getProjectsWithRepos
+  getProjectsWithRepos,
 } = proxyquire
   .noCallThru()
   .load('../../src/controllers/projects.js', {
     '../helpers/joinRepoToProject': stubJoinRepoToProject,
     '../database/services': {
-      getAllDocuments: stubGetAllDocuments
-    }
-});
+      getAllDocuments: stubGetAllDocuments,
+    },
+  });
 
 describe('project controller', () => {
   afterEach(() => {

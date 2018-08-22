@@ -9,3 +9,7 @@ export const getRepositories = async (req, res) => {
     api.error(res, err);
   }
 };
+
+export default {
+  getRepositories,
+};

@@ -12,26 +12,27 @@ const stubUse = sinon.stub();
 const stubCors = sinon.stub();
 const stubCorsOptions = { option1: 'value1', option2: 'value2' };
 
-const stubExpress = () => {
-  return {
-    get: stubGet,
-    listen: stubListen,
-    use: stubUse
-  }
+const stubExpressFuncs = {
+  get: stubGet,
+  listen: stubListen,
+  use: stubUse,
 };
 
+const stubExpress = () => stubExpressFuncs;
+
 const index = proxyquire('../src/server.js', {
-  'cors': stubCors,
+  cors: stubCors,
   './api/corsOptions': stubCorsOptions,
   './api/projects': {
     stubGetProjects,
-    stubGetProjectsWithRepos
+    stubGetProjectsWithRepos,
   },
-  'express': stubExpress
+  express: stubExpress,
 });
 
 describe('server.js', () => {
   it('it returns the server', () => {
+    expect(index).to.be.ok;
     expect(true).to.deep.equal(true);
   });
 });

@@ -1,3 +1,3 @@
 export default {
-  timestampsInSnapshots: true
+  timestampsInSnapshots: true,
 };

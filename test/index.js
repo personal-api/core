@@ -4,7 +4,7 @@ import sinon from 'sinon';
 
 const stubServer = sinon.stub();
 const index = proxyquire('../src/index.js', {
-  './server': stubServer
+  './server': stubServer,
 });
 
 describe('index.js', () => {
