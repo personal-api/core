@@ -4,15 +4,16 @@
   "description": "A personal API for managing my data across various providers.",
   "homepage": "https://github.com/chrisvogt/js-personal-api#readme",
   "author": {
-    "name" : "Chris Vogt",
-    "email" : "mail@chrisvogt.me",
-    "url" : "https://www.chrisvogt.me"
+    "name": "Chris Vogt",
+    "email": "mail@chrisvogt.me",
+    "url": "https://www.chrisvogt.me"
   },
   "main": "build/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf build",
     "compile": "./node_modules/.bin/babel -d build src",
+    "lint": "node ./node_modules/eslint/bin/eslint src",
     "prepublish": "npm run compile",
     "prestart": "npm run -s compile",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
@@ -22,22 +23,21 @@
   },
   "license": "MIT",
   "bugs": {
-    "url" : "https://github.com/chrisvogt/js-personal-api/issues"
+    "url": "https://github.com/chrisvogt/js-personal-api/issues"
   },
-  "repository": {
-
-  },
+  "repository": {},
   "dependencies": {
+    "@octokit/rest": "^15.10.0",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.0.4",
     "lodash": "^4.17.10",
     "rimraf": "^2.6.2"
   },
   "devDependencies": {
-    "@octokit/rest": "^15.9.4",
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.6",
@@ -47,7 +47,8 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
-    "firebase-admin": "^6.0.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
     "proxyquire": "^2.0.1",

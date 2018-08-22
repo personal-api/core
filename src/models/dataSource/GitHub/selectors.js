@@ -14,3 +14,13 @@ export const languageSelector = 'language';
 
 export const licenseSelector = 'license';
 
+export default {
+  idSelector,
+  nameSelector,
+  fullNameSelector,
+  privateSelector,
+  stargazersCountSelector,
+  watchersCountSelector,
+  languageSelector,
+  licenseSelector,
+};

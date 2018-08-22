@@ -1,5 +1,3 @@
-const repositoryFixture = {
-  name: 'Fake repository'
+export default {
+  name: 'Fake repository',
 };
-
-export default repositoryFixture;

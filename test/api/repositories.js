@@ -9,18 +9,18 @@ const sandbox = sinon.createSandbox();
 
 const stubAPIBase = {
   error: sandbox.stub(),
-  success: sandbox.stub()
+  success: sandbox.stub(),
 };
 
 const stubController = {
-  getRepositories: sandbox.stub()
+  getRepositories: sandbox.stub(),
 };
 
 const repositoriesAPI = proxyquire
   .noCallThru()
   .load('../../src/api/repositories', {
     './base': stubAPIBase,
-    '../controllers/repositories': stubController
+    '../controllers/repositories': stubController,
   });
 
 describe('API: repositories', () => {
