@@ -5,7 +5,8 @@ import joinRepoToProject from '../helpers/joinRepoToProject';
 const { PROJECTS } = constants.COLLECTIONS;
 
 export const getProjects = async () => {
-  return await getAllDocuments(PROJECTS);
+  const projects = await getAllDocuments(PROJECTS);
+  return projects;
 };
 
 export const getProjectsWithRepos = async () => {

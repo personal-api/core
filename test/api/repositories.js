@@ -9,18 +9,18 @@ const sandbox = sinon.createSandbox();
 
 const stubAPIBase = {
   error: sandbox.stub(),
-  success: sandbox.stub()
+  success: sandbox.stub(),
 };
 
 const stubController = {
-  getRepositories: sandbox.stub()
+  getRepositories: sandbox.stub(),
 };
 
 const repositoriesAPI = proxyquire
   .noCallThru()
   .load('../../src/api/repositories', {
     './base': stubAPIBase,
-    '../controllers/repositories': stubController
+    '../controllers/repositories': stubController,
   });
 
 describe('API: repositories', () => {
@@ -42,14 +42,14 @@ describe('API: repositories', () => {
     });
 
     it('returns a successful API response with repositories', async () => {
-      const repositoriesResponse = [ repositoryFixture ];
+      const repositoriesResponse = [repositoryFixture];
       stubController.getRepositories.resolves(repositoriesResponse);
       await repositoriesAPI.getRepositories(req, res);
       expect(stubAPIBase.success.args).to.deep.equal([
         [
           res,
-          { repositories: repositoriesResponse }
-        ]
+          { repositories: repositoriesResponse },
+        ],
       ]);
     });
 
@@ -60,8 +60,8 @@ describe('API: repositories', () => {
       expect(stubAPIBase.error.args).to.deep.equal([
         [
           res,
-          errorMessage
-        ]
+          errorMessage,
+        ],
       ]);
     });
   });

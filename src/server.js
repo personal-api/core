@@ -8,7 +8,7 @@ import { getRepositories } from './api/repositories';
 
 const {
   PORT,
-  STRINGS: { SERVER_STARTED }
+  STRINGS: { SERVER_STARTED },
 } = constants;
 
 const app = express();
@@ -19,4 +19,4 @@ app.get('/projects', getProjects);
 app.get('/projectsWithRepos', getProjectsWithRepos);
 app.get('/repositories', getRepositories);
 
-app.listen(PORT, () => console.log(SERVER_STARTED.replace('$PORT', PORT)))
+app.listen(PORT, () => console.log(SERVER_STARTED.replace('$PORT', PORT)));

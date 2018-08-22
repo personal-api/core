@@ -7,7 +7,7 @@ export default (repo) => {
     license,
     stargazers_count: stars,
     updated_at: updated,
-    watchers
+    watchers,
   } = repo;
   return {
     created,
@@ -17,6 +17,6 @@ export default (repo) => {
     license,
     stars,
     updated,
-    watchers
+    watchers,
   };
 };

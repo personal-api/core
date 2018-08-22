@@ -1,11 +1,9 @@
-import octokit from '@octokit/rest';
+import Octokit from '@octokit/rest';
 
 export default async (id) => {
   const {
-    getNextPage,
-    hasNextPage,
-    repos: { getById }
-  } = new octokit();
+    repos: { getById },
+  } = new Octokit();
 
   try {
     const { data = {} } = await getById({ id });
@@ -13,5 +11,6 @@ export default async (id) => {
   } catch (error) {
     console.log('An error occured fetching the data.');
     console.warn(error);
+    return {};
   }
 };

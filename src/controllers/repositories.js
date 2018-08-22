@@ -4,5 +4,10 @@ import { getAllDocuments } from '../database/services';
 const { REPOSITORIES } = constants.COLLECTIONS;
 
 export const getRepositories = async () => {
-  return await getAllDocuments(REPOSITORIES);
-}
+  const repositories = await getAllDocuments(REPOSITORIES);
+  return repositories;
+};
+
+export default {
+  getAllDocuments,
+};
