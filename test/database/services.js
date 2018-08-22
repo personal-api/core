@@ -54,14 +54,39 @@ describe('database services', async () => {
 
     beforeEach(() => {
       getStub.resolves(mockDocument);
-      queriedDoc = getDocumentById('xyz', 'projects');
     });
 
-    it('queries the requested collection by name', () => {
+    it('fails if called without an id to query', async () => {
+      queriedDoc = await getDocumentById();
+      expect(queriedDoc).to.equal(undefined);
+    });
+
+    it('queries the requested collection by name', async () => {
+      queriedDoc = await getDocumentById('xyz', 'projects');
       expect(collectionStub.args).to.deep.equal([['projects']]);
     });
 
-    it('queries the requested doc by id', () => {
+    it('queries the requested doc by id', async () => {
+      queriedDoc = await getDocumentById('xyz', 'projects');
+      expect(docStub.args).to.deep.equal([['xyz']]);
+    });
+  });
+
+  describe('getDocumentRefById', () => {
+    let queriedDoc;
+
+    it('fails if called without an id', async () => {
+      queriedDoc = await getDocumentRefById();
+      expect(queriedDoc).to.equal(undefined);
+    });
+
+    it('queries the requested collection by name', async () => {
+      queriedDoc = await getDocumentRefById('xyz', 'projects');
+      expect(collectionStub.args).to.deep.equal([['projects']]);
+    });
+
+    it('queries the requested doc by id', async () => {
+      queriedDoc = await getDocumentRefById('xyz', 'projects');
       expect(docStub.args).to.deep.equal([['xyz']]);
     });
   });
