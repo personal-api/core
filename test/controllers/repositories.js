@@ -8,13 +8,13 @@ const sandbox = sinon.createSandbox();
 const stubGetAllDocuments = sandbox.stub().resolves([repositoryFixture]);
 
 const {
-  getRepositories
+  getRepositories,
 } = proxyquire
   .noCallThru()
   .load('../../src/controllers/repositories.js', {
     '../database/services': {
-      getAllDocuments: stubGetAllDocuments
-    }
+      getAllDocuments: stubGetAllDocuments,
+    },
 });
 
 describe('repositories controller', () => {

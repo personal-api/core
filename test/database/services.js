@@ -6,25 +6,23 @@ const sandbox = sinon.createSandbox();
 
 const mockDocument = { name: 'testDoc' };
 const documentObj = {
-  data: () => {
-    return mockDocument;
-  }
+  data: () => mockDocument,
 };
 
-let getStub = sandbox.stub();
-let docStub = sandbox.stub().returns({ get: getStub });
-let collectionStub = sandbox.stub().returns({ doc: docStub, get: getStub });
+const getStub = sandbox.stub();
+const docStub = sandbox.stub().returns({ get: getStub });
+const collectionStub = sandbox.stub().returns({ doc: docStub, get: getStub });
 
 const {
   getAllDocuments,
   getDocumentById,
-  getDocumentRefById
+  getDocumentRefById,
 } = proxyquire
   .noCallThru()
   .load('../../src/database/services.js', {
     './': {
-      collection: collectionStub
-    }
+      collection: collectionStub,
+    },
 });
 
 describe('database services', async () => {
@@ -36,7 +34,7 @@ describe('database services', async () => {
     let allDocuments;
 
     beforeEach(async () => {
-      getStub.resolves([ documentObj, documentObj ]);
+      getStub.resolves([documentObj, documentObj]);
       allDocuments = await getAllDocuments('projects');
     });
 
@@ -56,9 +54,9 @@ describe('database services', async () => {
       getStub.resolves(mockDocument);
     });
 
-    it('fails if called without an id to query', async () => {
+    it('fails if called without an id', async () => {
       queriedDoc = await getDocumentById();
-      expect(queriedDoc).to.equal(undefined);
+      expect(queriedDoc).to.deep.equal({});
     });
 
     it('queries the requested collection by name', async () => {
@@ -77,7 +75,7 @@ describe('database services', async () => {
 
     it('fails if called without an id', async () => {
       queriedDoc = await getDocumentRefById();
-      expect(queriedDoc).to.equal(undefined);
+      expect(queriedDoc).to.deep.equal({});
     });
 
     it('queries the requested collection by name', async () => {

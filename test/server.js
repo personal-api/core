@@ -16,18 +16,18 @@ const stubExpress = () => {
   return {
     get: stubGet,
     listen: stubListen,
-    use: stubUse
-  }
+    use: stubUse,
+  };
 };
 
 const index = proxyquire('../src/server.js', {
-  'cors': stubCors,
+  cors: stubCors,
   './api/corsOptions': stubCorsOptions,
   './api/projects': {
     stubGetProjects,
-    stubGetProjectsWithRepos
+    stubGetProjectsWithRepos,
   },
-  'express': stubExpress
+  express: stubExpress,
 });
 
 describe('server.js', () => {

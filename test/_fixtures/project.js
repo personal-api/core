@@ -3,8 +3,8 @@ const projectFixture = {
   repository: {
     provider: 'github',
     providerId: 144503664,
-    ref: '1RTQoq4uqT2e8dzoBcGc'
-  }
+    ref: '1RTQoq4uqT2e8dzoBcGc',
+  },
 };
 
 export default projectFixture;

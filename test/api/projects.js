@@ -9,19 +9,19 @@ const sandbox = sinon.createSandbox();
 
 const stubAPIBase = {
   error: sandbox.stub(),
-  success: sandbox.stub()
+  success: sandbox.stub(),
 };
 
 const stubController = {
   getProjects: sandbox.stub(),
-  getProjectsWithRepos: sandbox.stub()
+  getProjectsWithRepos: sandbox.stub(),
 };
 
 const projectsAPI = proxyquire
   .noCallThru()
   .load('../../src/api/projects', {
     './base': stubAPIBase,
-    '../controllers/projects': stubController
+    '../controllers/projects': stubController,
   });
 
 describe('API: projects', () => {
@@ -44,8 +44,8 @@ describe('API: projects', () => {
       expect(stubAPIBase.success.args).to.deep.equal([
         [
           res,
-          { projects: projectsResponse }
-        ]
+          { projects: projectsResponse },
+        ],
       ]);
     });
 
@@ -56,8 +56,8 @@ describe('API: projects', () => {
       expect(stubAPIBase.error.args).to.deep.equal([
         [
           res,
-          errorMessage
-        ]
+          errorMessage,
+        ],
       ]);
     });
   });
@@ -76,9 +76,9 @@ describe('API: projects', () => {
         [
           res,
           {
-            projects: projectsResponse
-          }
-        ]
+            projects: projectsResponse,
+          },
+        ],
       ]);
     });
 
@@ -89,8 +89,8 @@ describe('API: projects', () => {
       expect(stubAPIBase.error.args).to.deep.equal([
         [
           res,
-          errorMessage
-        ]
+          errorMessage,
+        ],
       ]);
     });
   });

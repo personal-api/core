@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import getProject, {
   getName,
   getRepositoryProviderId,
-  getRepositoryRef
+  getRepositoryRef,
 } from '../../src/models/project';
 import projectFixture from '../_fixtures/project';
 
@@ -35,4 +35,3 @@ describe('model: project getters', () => {
     });
   });
 });
-

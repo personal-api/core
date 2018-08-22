@@ -18,10 +18,10 @@ describe('API: base', () => {
 
   describe('error template', () => {
     const errorMessage = 'A terrible error occurred.';
-    const mockError = new Error(errorMessage)
+    const mockError = new Error(errorMessage);
 
     beforeEach(() => {
-      error(res, mockError)
+      error(res, mockError);
     });
 
     it('sets the response message to the Error string', () => {
@@ -49,7 +49,7 @@ describe('API: base', () => {
 
       it('returns simply { status: "ok" } if no data is provided', () => {
         expect(res.json.args[0][0]).to.deep.equal({
-          status: 'ok'
+          status: 'ok',
         });
       });
     });

@@ -48,8 +48,8 @@ describe('API: repositories', () => {
       expect(stubAPIBase.success.args).to.deep.equal([
         [
           res,
-          { repositories: repositoriesResponse }
-        ]
+          { repositories: repositoriesResponse },
+        ],
       ]);
     });
 
@@ -60,8 +60,8 @@ describe('API: repositories', () => {
       expect(stubAPIBase.error.args).to.deep.equal([
         [
           res,
-          errorMessage
-        ]
+          errorMessage,
+        ],
       ]);
     });
   });
