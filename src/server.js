@@ -22,8 +22,4 @@ const bootstrap = async () => {
   app.listen(PORT, () => console.log(SERVER_STARTED.replace('$PORT', PORT)));
 };
 
-try {
-  bootstrap();
-} catch (error) {
-  console.error(error);
-}
+bootstrap();

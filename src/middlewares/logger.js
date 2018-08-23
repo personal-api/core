@@ -1,6 +1,6 @@
 import morgan from 'morgan';
 
-export default async (app) => {
+export default (app) => {
   const formatString = process.env.NODE_ENV !== 'production' ? 'dev' : 'tiny';
   const logger = morgan(formatString);
 
