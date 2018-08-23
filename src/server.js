@@ -1,22 +1,29 @@
-import cors from 'cors';
 import express from 'express';
 
 import constants from './constants';
-import corsOptions from './api/corsOptions';
 import { getProjects, getProjectsWithRepos } from './api/projects';
 import { getRepositories } from './api/repositories';
+import middlewares from './middlewares';
 
 const {
   PORT,
   STRINGS: { SERVER_STARTED },
 } = constants;
 
-const app = express();
+const bootstrap = async () => {
+  const app = express();
 
-app.use(cors(corsOptions));
+  await middlewares(app);
 
-app.get('/projects', getProjects);
-app.get('/projectsWithRepos', getProjectsWithRepos);
-app.get('/repositories', getRepositories);
+  app.get('/projects', getProjects);
+  app.get('/projectsWithRepos', getProjectsWithRepos);
+  app.get('/repositories', getRepositories);
 
-app.listen(PORT, () => console.log(SERVER_STARTED.replace('$PORT', PORT)));
+  app.listen(PORT, () => console.log(SERVER_STARTED.replace('$PORT', PORT)));
+};
+
+try {
+  bootstrap();
+} catch (error) {
+  console.error(error);
+}
