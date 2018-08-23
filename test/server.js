@@ -20,7 +20,7 @@ const stubExpressFuncs = {
 
 const stubExpress = () => stubExpressFuncs;
 
-const index = proxyquire('../src/server.js', {
+const server = proxyquire('../src/server.js', {
   cors: stubCors,
   './api/corsOptions': stubCorsOptions,
   './api/projects': {
@@ -32,7 +32,7 @@ const index = proxyquire('../src/server.js', {
 
 describe('server.js', () => {
   it('it returns the server', () => {
-    expect(index).to.be.ok;
+    expect(server).to.be.ok;
     expect(true).to.deep.equal(true);
   });
 });
