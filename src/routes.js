@@ -4,7 +4,11 @@ import constants from './constants';
 import { getProjects, getProjectsWithRepos } from './api/projects';
 import { getRepositories } from './api/repositories';
 
-const cacheOptions = { debug: process.env.NODE_ENV !== 'production' };
+const isProduction = process.env.NODE_ENV === 'production';
+const cacheOptions = {
+  debug: process.env.DEBUG_APP,
+  enabled: isProduction,
+};
 const cache = apicache.options(cacheOptions).middleware;
 const { DEFAULT_CACHE_TIME } = constants;
 
