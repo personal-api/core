@@ -1,13 +1,15 @@
 import apicache from 'apicache';
 
+import constants from './constants';
 import { getProjects, getProjectsWithRepos } from './api/projects';
 import { getRepositories } from './api/repositories';
 
 const cacheOptions = { debug: true };
 const cache = apicache.options(cacheOptions).middleware;
+const { DEFAULT_CACHE_TIME } = constants;
 
 export default (app) => {
-  app.get('/projects', cache('3 hours'), getProjects);
-  app.get('/projectsWithRepos', cache('3 hours'), getProjectsWithRepos);
-  app.get('/repositories', cache('3 hours'), getRepositories);
+  app.get('/projects', cache(DEFAULT_CACHE_TIME), getProjects);
+  app.get('/projectsWithRepos', cache(DEFAULT_CACHE_TIME), getProjectsWithRepos);
+  app.get('/repositories', cache(DEFAULT_CACHE_TIME), getRepositories);
 };
