@@ -4,6 +4,7 @@ export default {
     PROJECTS: 'projects',
     REPOSITORIES: 'repositories',
   },
+  DEFAULT_CACHE_TIME: '3 hours',
   PORT: 3000,
   STRINGS: {
     CREATED_NEW_REPOSITORY: 'added repository for $NAME',

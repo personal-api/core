@@ -28,6 +28,7 @@
   "repository": {},
   "dependencies": {
     "@octokit/rest": "^15.10.0",
+    "apicache": "^1.2.3",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
