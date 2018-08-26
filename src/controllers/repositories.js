@@ -1,13 +1,16 @@
 import constants from '../constants';
 import { getAllDocuments } from '../database/services';
+import { sendError, sendSuccess } from '../api/base';
 
 const { REPOSITORIES } = constants.COLLECTIONS;
 
-export const getRepositories = async () => {
-  const repositories = await getAllDocuments(REPOSITORIES);
-  return repositories;
+const getRepositories = async (req, res) => {
+  try {
+    const repositories = await getAllDocuments(REPOSITORIES);
+    sendSuccess(res, { repositories });
+  } catch (error) {
+    sendError(res, { error });
+  }
 };
 
-export default {
-  getAllDocuments,
-};
+export default getRepositories;

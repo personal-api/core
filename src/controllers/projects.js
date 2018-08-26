@@ -1,17 +1,33 @@
 import constants from '../constants';
 import { getAllDocuments } from '../database/services';
 import joinRepoToProject from '../helpers/joinRepoToProject';
+import { sendError, sendSuccess } from '../api/base';
 
 const { PROJECTS } = constants.COLLECTIONS;
 
-export const getProjects = async () => {
+const getProjectsAndRepos = async () => {
   const projects = await getAllDocuments(PROJECTS);
-  return projects;
+  const projectsAndRepos = projects.map(joinRepoToProject);
+  return Promise.all(projectsAndRepos);
 };
 
-export const getProjectsWithRepos = async () => {
-  const projects = await getAllDocuments(PROJECTS);
-  const projectsWithRepos = projects.map(joinRepoToProject);
+const getProjects = async (req, res) => {
+  const {
+    query: {
+      repository: repositoryParam,
+    } = {},
+  } = req;
 
-  return Promise.all(projectsWithRepos);
+  const includeRepository = repositoryParam === 'expanded';
+  try {
+    const projects = includeRepository
+      ? await getProjectsAndRepos()
+      : await getAllDocuments(PROJECTS);
+
+    sendSuccess(res, { projects });
+  } catch (error) {
+    sendError(res, { error });
+  }
 };
+
+export default getProjects;

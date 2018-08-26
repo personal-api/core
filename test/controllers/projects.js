@@ -15,62 +15,93 @@ const mockJoinResponse = {
 const sandbox = sinon.createSandbox();
 const stubGetAllDocuments = sandbox.stub();
 const stubJoinRepoToProject = sandbox.stub().returns(mockJoinResponse);
+const stubSendError = sandbox.stub();
+const stubSendSuccess = sandbox.stub();
 
-const {
-  getProjects,
-  getProjectsWithRepos,
-} = proxyquire
+const getProjects = proxyquire
   .noCallThru()
   .load('../../src/controllers/projects.js', {
+    '../api/base': {
+      sendError: stubSendError,
+      sendSuccess: stubSendSuccess,
+    },
     '../helpers/joinRepoToProject': stubJoinRepoToProject,
     '../database/services': {
       getAllDocuments: stubGetAllDocuments,
     },
-  });
+  }).default;
 
 describe('project controller', () => {
+  let req = {};
+  const res = sandbox.stub();
+
   afterEach(() => {
+    req = {};
     sandbox.resetHistory();
   });
 
   describe('getProjects', () => {
-    const projectsArr = [projectFixture, projectFixture];
-    let allDocuments;
+    describe('default response', () => {
+      const projectsArr = [projectFixture, projectFixture];
 
-    beforeEach(async () => {
-      stubGetAllDocuments.resolves(projectsArr);
-      allDocuments = await getProjects();
+      beforeEach(async () => {
+        stubGetAllDocuments.resolves(projectsArr);
+        await getProjects(req, res);
+      });
+
+      it('queries the projects collection', () => {
+        expect(stubGetAllDocuments.args).to.deep.equal([['projects']]);
+      });
+
+      it('returns the projects', () => {
+        expect(stubSendSuccess.args).to.deep.equal([[res, {
+          projects: projectsArr,
+        }]]);
+      });
     });
 
-    it('queries the projects collection', () => {
-      expect(stubGetAllDocuments.args).to.deep.equal([['projects']]);
-    });
+    describe('with repository data expanded', () => {
+      const projectsArr = [projectFixture, projectFixture];
+      const joinedProjectsArr = new Array(projectsArr.length).fill(mockJoinResponse);
 
-    it('returns the projects', () => {
-      expect(allDocuments).to.deep.equal(projectsArr);
+      beforeEach(async () => {
+        req = {
+          query: {
+            repository: 'expanded',
+          },
+        };
+        stubGetAllDocuments.resolves(projectsArr);
+        await getProjects(req, res);
+      });
+
+      it('queries the projects collection', () => {
+        expect(stubGetAllDocuments.args).to.deep.equal([['projects']]);
+      });
+
+      it('maps each project to the project repo', () => {
+        expect(stubJoinRepoToProject.args).to.deep.equal(stubJoinRepoToProject.args);
+      });
+
+      it('returns the projects with repo data attached', () => {
+        expect(stubSendSuccess.args).to.deep.equal([[res, {
+          projects: joinedProjectsArr,
+        }]]);
+      });
     });
   });
 
-  describe('getProjectsWithRepos', () => {
-    const projectsArr = [projectFixture, projectFixture];
-    const joinedProjectsArr = new Array(projectsArr.length).fill(mockJoinResponse);
-    let allDocuments;
+  describe('error handling', () => {
+    const mockError = new Error('something went wrong');
 
     beforeEach(async () => {
-      stubGetAllDocuments.resolves(projectsArr);
-      allDocuments = await getProjectsWithRepos();
+      stubGetAllDocuments.rejects(mockError);
+      await getProjects(req, res);
     });
 
-    it('queries the projects collection', () => {
-      expect(stubGetAllDocuments.args).to.deep.equal([['projects']]);
-    });
-
-    it('maps each project to the project repo', () => {
-      expect(stubJoinRepoToProject.args).to.deep.equal(stubJoinRepoToProject.args);
-    });
-
-    it('returns the projects with repo data attached', () => {
-      expect(allDocuments).to.deep.equal(joinedProjectsArr);
+    it('returns the error', () => {
+      expect(stubSendError.args).to.deep.equal([[res, {
+        error: mockError,
+      }]]);
     });
   });
 });

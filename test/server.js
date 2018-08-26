@@ -3,7 +3,6 @@ import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
 const stubGetProjects = sinon.stub();
-const stubGetProjectsWithRepos = sinon.stub();
 
 const stubGet = sinon.stub();
 const stubListen = sinon.stub();
@@ -23,9 +22,8 @@ const stubExpress = () => stubExpressFuncs;
 const server = proxyquire('../src/server.js', {
   cors: stubCors,
   './api/corsOptions': stubCorsOptions,
-  './api/projects': {
+  './controllers/projects': {
     stubGetProjects,
-    stubGetProjectsWithRepos,
   },
   express: stubExpress,
 });

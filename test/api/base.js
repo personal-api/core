@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import { error, success } from '../../src/api/base';
+import { sendError, sendSuccess } from '../../src/api/base';
 import res from '../_fixtures/res';
 
 const sandbox = sinon.createSandbox();
@@ -21,7 +21,7 @@ describe('API: base', () => {
     const mockError = new Error(errorMessage);
 
     beforeEach(() => {
-      error(res, mockError);
+      sendError(res, mockError);
     });
 
     it('sets the response message to the Error string', () => {
@@ -44,7 +44,7 @@ describe('API: base', () => {
 
     describe('without data', () => {
       beforeEach(() => {
-        success(res);
+        sendSuccess(res);
       });
 
       it('returns simply { status: "ok" } if no data is provided', () => {
@@ -56,7 +56,7 @@ describe('API: base', () => {
 
     describe('with data', () => {
       beforeEach(() => {
-        success(res, mockResult);
+        sendSuccess(res, mockResult);
       });
 
       it('returns the result in the response', () => {
