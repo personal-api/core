@@ -6,14 +6,16 @@ const { REPOSITORIES } = constants.COLLECTIONS;
 
 const joinRepoToProject = async (project) => {
   const ref = getRepositoryRef(project);
-  const repository = await getDocumentById(ref, REPOSITORIES);
+  const repository = ref ? await getDocumentById(ref, REPOSITORIES) : null;
 
   const updatedProject = {
     ...project,
-    repository: {
-      ...project.repository,
-      meta: repository.data(),
-    },
+    ...(repository ? {
+      repository: {
+        ...project.repository,
+        meta: repository.data(),
+      },
+    } : {}),
   };
 
   return updatedProject;
