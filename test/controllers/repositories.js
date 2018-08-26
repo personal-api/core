@@ -6,29 +6,35 @@ import repositoryFixture from '../_fixtures/repository';
 
 const sandbox = sinon.createSandbox();
 const stubGetAllDocuments = sandbox.stub().resolves([repositoryFixture]);
+const stubSendError = sandbox.stub();
+const stubSendSuccess = sandbox.stub();
 
-const {
-  getRepositories,
-} = proxyquire
+const getRepositories = proxyquire
   .noCallThru()
   .load('../../src/controllers/repositories.js', {
+    '../api/base': {
+      sendError: stubSendError,
+      sendSuccess: stubSendSuccess,
+    },
     '../database/services': {
       getAllDocuments: stubGetAllDocuments,
     },
-  });
+  }).default;
 
 describe('repositories controller', () => {
+  const req = { query: {} };
+  const res = sandbox.stub();
+
   afterEach(() => {
     sandbox.resetHistory();
   });
 
   describe('getRepositories', () => {
     const repositoriesArr = [repositoryFixture, repositoryFixture];
-    let allDocuments;
 
     beforeEach(async () => {
       stubGetAllDocuments.resolves(repositoriesArr);
-      allDocuments = await getRepositories();
+      await getRepositories(req, res);
     });
 
     it('queries the repositories collection', () => {
@@ -36,7 +42,9 @@ describe('repositories controller', () => {
     });
 
     it('returns the repositories', () => {
-      expect(allDocuments).to.deep.equal(repositoriesArr);
+      expect(stubSendSuccess.args).to.deep.equal([[res, {
+        repositories: repositoriesArr,
+      }]]);
     });
   });
 });

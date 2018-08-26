@@ -53,8 +53,7 @@ The endpoints available are:
 
 | route | response |
 |---|---|
-| `GET /projects` | get all projects |
-| `GET /projectsWithRepos` | get all projects with repository data instead of refs |
+| `GET /projects` | get all projects (use param `repository` to include repository data) |
 | `GET /repositories` | get all repositories |
 
 ## » Commands

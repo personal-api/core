@@ -1,4 +1,4 @@
-export const error = (res, err) => {
+export const sendError = (res, err) => {
   const message = err.toString();
 
   res.type('json');
@@ -9,7 +9,7 @@ export const error = (res, err) => {
   });
 };
 
-export const success = (res, result) => {
+export const sendSuccess = (res, result) => {
   const response = {};
 
   response.status = 'ok';
