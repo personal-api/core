@@ -32,10 +32,11 @@ const getProjects = proxyquire
   }).default;
 
 describe('project controller', () => {
-  const req = { query: {} };
+  let req = {};
   const res = sandbox.stub();
 
   afterEach(() => {
+    req = {};
     sandbox.resetHistory();
   });
 
@@ -64,7 +65,11 @@ describe('project controller', () => {
       const joinedProjectsArr = new Array(projectsArr.length).fill(mockJoinResponse);
 
       beforeEach(async () => {
-        req.query = { repository: 'expanded' };
+        req = {
+          query: {
+            repository: 'expanded',
+          },
+        };
         stubGetAllDocuments.resolves(projectsArr);
         await getProjects(req, res);
       });
@@ -82,6 +87,21 @@ describe('project controller', () => {
           projects: joinedProjectsArr,
         }]]);
       });
+    });
+  });
+
+  describe('error handling', () => {
+    const mockError = new Error('something went wrong');
+
+    beforeEach(async () => {
+      stubGetAllDocuments.rejects(mockError);
+      await getProjects(req, res);
+    });
+
+    it('returns the error', () => {
+      expect(stubSendError.args).to.deep.equal([[res, {
+        error: mockError,
+      }]]);
     });
   });
 });
