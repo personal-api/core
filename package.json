@@ -2,7 +2,7 @@
   "name": "js-personal-api",
   "version": "0.1.0",
   "description": "API for managing personal data across various networks and providers.",
-  "homepage": "https://github.com/chrisvogt/js-personal-api#readme",
+  "homepage": "https://github.com/personal-api/core#readme",
   "author": {
     "name": "Chris Vogt",
     "email": "mail@chrisvogt.me",
@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrisvogt/js-personal-api/issues"
+    "url": "https://github.com/personal-api/core/issues"
   },
   "repository": {},
   "dependencies": {
