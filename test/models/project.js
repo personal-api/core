@@ -37,6 +37,6 @@ describe('model: project getters', () => {
     it('returns undefined if not found', () => {
       const ref = getRepositoryRef({});
       expect(ref).to.deep.equal(undefined);
-    })
+    });
   });
 });
