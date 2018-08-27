@@ -1,6 +1,8 @@
 export default {
   APP_NAME: 'Personal API',
   COLLECTIONS: {
+    METAS: 'metas',
+    PROFILES: 'profiles',
     PROJECTS: 'projects',
     REPOSITORIES: 'repositories',
   },
