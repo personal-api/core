@@ -1,7 +1,7 @@
 {
   "name": "js-personal-api",
-  "version": "0.0.1",
-  "description": "A personal API for managing my data across various providers.",
+  "version": "0.1.0",
+  "description": "API for managing personal data across various networks and providers.",
   "homepage": "https://github.com/chrisvogt/js-personal-api#readme",
   "author": {
     "name": "Chris Vogt",
@@ -48,7 +48,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
-    "eslint": "^4.19.1",
+    "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "mocha": "^5.2.0",
