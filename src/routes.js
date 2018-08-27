@@ -16,7 +16,7 @@ const cache = apicache.options(cacheOptions).middleware;
 const { DEFAULT_CACHE_TIME } = constants;
 
 export default (app) => {
-  app.use('/composite', cache(DEFAULT_CACHE_TIME), getComposite)
+  app.use('/composite', cache(DEFAULT_CACHE_TIME), getComposite);
   app.use('/metas', cache(DEFAULT_CACHE_TIME), getMetas);
   app.use('/profiles', cache(DEFAULT_CACHE_TIME), getProfiles);
   app.use('/projects', cache(DEFAULT_CACHE_TIME), getProjects);
