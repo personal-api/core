@@ -18,8 +18,10 @@ const mockResult = {
   data: () => mockRepository,
 };
 
+const stubGetRepositoryRef = sinon.stub();
+
 const projects = {
-  getRepositoryRef: sinon.stub().returns(mockProject.repository.ref),
+  getRepositoryRef: stubGetRepositoryRef,
 };
 
 const services = {
@@ -34,7 +36,8 @@ const joinRepoToProject = proxyquire('../../src/helpers/joinRepoToProject.js', {
 }).default;
 
 describe('joinRepoToProject helper', async () => {
-  it('it joins the requested repository', async () => {
+  it('joins the requested repository', async () => {
+    stubGetRepositoryRef.resolves(mockProject.repository.ref);
     const result = await joinRepoToProject(mockProject);
 
     expect(result).to.deep.equal({
@@ -44,5 +47,12 @@ describe('joinRepoToProject helper', async () => {
         meta: mockRepository,
       },
     });
+  });
+
+  it('returns the project if no repository is found', async () => {
+    stubGetRepositoryRef.returns(null);
+    const result = await joinRepoToProject(mockProject);
+
+    expect(result).to.deep.equal(mockProject);
   });
 });

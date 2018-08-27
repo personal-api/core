@@ -33,5 +33,10 @@ describe('model: project getters', () => {
       const ref = getRepositoryRef(projectFixture);
       expect(ref).to.deep.equal(projectFixture.repository.ref);
     });
+
+    it('returns undefined if not found', () => {
+      const ref = getRepositoryRef({});
+      expect(ref).to.deep.equal(undefined);
+    });
   });
 });
