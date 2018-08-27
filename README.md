@@ -53,6 +53,9 @@ The endpoints available are:
 
 | route | response |
 |---|---|
+| `GET /composite` | returns all collections |
+| `GET /metas` | get all meta data |
+| `GET /profiles` | get all profiles |
 | `GET /projects` | get all projects (param `repository=expanded` includes repository data) |
 | `GET /repositories` | get all repositories |
 
