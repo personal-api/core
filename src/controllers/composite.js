@@ -6,6 +6,7 @@ const {
   METAS,
   PROFILES,
   PROJECTS,
+  QUOTES,
   REPOSITORIES,
 } = constants.COLLECTIONS;
 
@@ -14,12 +15,14 @@ const getComposite = async (req, res) => {
     const metas = await getAllDocuments(METAS);
     const profiles = await getAllDocuments(PROFILES);
     const projects = await getAllDocuments(PROJECTS);
+    const quotes = await getAllDocuments(QUOTES);
     const repositories = await getAllDocuments(REPOSITORIES);
 
     sendSuccess(res, {
       metas,
       profiles,
       projects,
+      quotes,
       repositories,
     });
   } catch (error) {
