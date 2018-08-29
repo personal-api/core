@@ -3,7 +3,6 @@ import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
 import quoteFixture from '../_fixtures/quote';
-// import getQuotes from '../../src/controllers/quotes';
 
 const sandbox = sinon.createSandbox();
 const stubGetAllDocuments = sandbox.stub().resolves([quoteFixture]);
