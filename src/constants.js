@@ -4,6 +4,7 @@ export default {
     METAS: 'metas',
     PROFILES: 'profiles',
     PROJECTS: 'projects',
+    QUOTES: 'quotes',
     REPOSITORIES: 'repositories',
   },
   DEFAULT_CACHE_TIME: '3 hours',

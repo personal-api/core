@@ -5,6 +5,7 @@ import getComposite from './controllers/composite';
 import getMetas from './controllers/metas';
 import getProfiles from './controllers/profiles';
 import getProjects from './controllers/projects';
+import getQuotes from './controllers/quotes';
 import getRepositories from './controllers/repositories';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -20,5 +21,6 @@ export default (app) => {
   app.use('/metas', cache(DEFAULT_CACHE_TIME), getMetas);
   app.use('/profiles', cache(DEFAULT_CACHE_TIME), getProfiles);
   app.use('/projects', cache(DEFAULT_CACHE_TIME), getProjects);
+  app.use('/quotes', cache(DEFAULT_CACHE_TIME), getQuotes);
   app.use('/repositories', cache(DEFAULT_CACHE_TIME), getRepositories);
 };
