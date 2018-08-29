@@ -8,6 +8,7 @@ const {
   METAS,
   PROFILES,
   PROJECTS,
+  QUOTES,
   REPOSITORIES,
 } = constants.COLLECTIONS;
 
@@ -41,6 +42,7 @@ describe('composite controller', () => {
       stubGetAllDocuments.withArgs(METAS).resolves(METAS);
       stubGetAllDocuments.withArgs(PROFILES).resolves(PROFILES);
       stubGetAllDocuments.withArgs(PROJECTS).resolves(PROJECTS);
+      stubGetAllDocuments.withArgs(QUOTES).resolves(QUOTES);
       stubGetAllDocuments.withArgs(REPOSITORIES).resolves(REPOSITORIES);
     });
 
@@ -50,6 +52,7 @@ describe('composite controller', () => {
         [METAS],
         [PROFILES],
         [PROJECTS],
+        [QUOTES],
         [REPOSITORIES],
       ]);
     });
@@ -60,6 +63,7 @@ describe('composite controller', () => {
         [METAS]: METAS,
         [PROFILES]: PROFILES,
         [PROJECTS]: PROJECTS,
+        [QUOTES]: QUOTES,
         [REPOSITORIES]: REPOSITORIES,
       }]]);
     });
