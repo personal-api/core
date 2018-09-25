@@ -1,5 +1,6 @@
 import constants from '../constants';
 import { getAllDocuments } from '../database/services';
+import { parseProject } from './projects';
 import { sendError, sendSuccess } from '../api/base';
 
 const {
@@ -21,7 +22,7 @@ const getComposite = async (req, res) => {
     sendSuccess(res, {
       metas,
       profiles,
-      projects,
+      projects: projects.map(parseProject),
       quotes,
       repositories,
     });

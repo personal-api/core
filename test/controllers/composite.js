@@ -14,6 +14,7 @@ const {
 
 const sandbox = sinon.createSandbox();
 const stubGetAllDocuments = sandbox.stub();
+const stubParseProject = project => project;
 const stubSendError = sandbox.stub();
 const stubSendSuccess = sandbox.stub();
 
@@ -23,6 +24,9 @@ const getComposite = proxyquire
     '../api/base': {
       sendError: stubSendError,
       sendSuccess: stubSendSuccess,
+    },
+    './projects': {
+      parseProject: stubParseProject,
     },
     '../database/services': {
       getAllDocuments: stubGetAllDocuments,
@@ -38,10 +42,12 @@ describe('composite controller', () => {
   });
 
   describe('getComposite()', () => {
+    const mockProjects = [{ id: '1' }, { id: '2' }];
+
     before(() => {
       stubGetAllDocuments.withArgs(METAS).resolves(METAS);
       stubGetAllDocuments.withArgs(PROFILES).resolves(PROFILES);
-      stubGetAllDocuments.withArgs(PROJECTS).resolves(PROJECTS);
+      stubGetAllDocuments.withArgs(PROJECTS).resolves(mockProjects);
       stubGetAllDocuments.withArgs(QUOTES).resolves(QUOTES);
       stubGetAllDocuments.withArgs(REPOSITORIES).resolves(REPOSITORIES);
     });
@@ -62,7 +68,7 @@ describe('composite controller', () => {
       expect(stubSendSuccess.args).to.deep.equal([[res, {
         [METAS]: METAS,
         [PROFILES]: PROFILES,
-        [PROJECTS]: PROJECTS,
+        [PROJECTS]: mockProjects,
         [QUOTES]: QUOTES,
         [REPOSITORIES]: REPOSITORIES,
       }]]);
