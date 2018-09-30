@@ -3,22 +3,18 @@ import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
 import projectFixture from '../_fixtures/project';
-
-const mockJoinResponse = {
-  repository: {
-    meta: {
-      name: 'ACME Repository',
-    },
-  },
-};
+import repositoryFixture from '../_fixtures/repository';
 
 const sandbox = sinon.createSandbox();
 const stubGetAllDocuments = sandbox.stub();
-const stubJoinRepoToProject = sandbox.stub().returns(mockJoinResponse);
+const stubJoinRepoToProject = (project) => {
+  const projectWithRepo = { project, ...repositoryFixture };
+  return projectWithRepo;
+};
 const stubSendError = sandbox.stub();
 const stubSendSuccess = sandbox.stub();
 
-const getProjects = proxyquire
+const { default: getProjects, parseProject } = proxyquire
   .noCallThru()
   .load('../../src/controllers/projects.js', {
     '../api/base': {
@@ -26,10 +22,11 @@ const getProjects = proxyquire
       sendSuccess: stubSendSuccess,
     },
     '../helpers/joinRepoToProject': stubJoinRepoToProject,
+    '../mutators/convertTimestampToMs': a => a,
     '../database/services': {
       getAllDocuments: stubGetAllDocuments,
     },
-  }).default;
+  });
 
 describe('project controller', () => {
   let req = {};
@@ -62,7 +59,6 @@ describe('project controller', () => {
 
     describe('with repository data expanded', () => {
       const projectsArr = [projectFixture, projectFixture];
-      const joinedProjectsArr = new Array(projectsArr.length).fill(mockJoinResponse);
 
       beforeEach(async () => {
         req = {
@@ -82,9 +78,9 @@ describe('project controller', () => {
         expect(stubJoinRepoToProject.args).to.deep.equal(stubJoinRepoToProject.args);
       });
 
-      it('returns the projects with repo data attached', () => {
+      it('returns the projects with repo data attached', async () => {
         expect(stubSendSuccess.args).to.deep.equal([[res, {
-          projects: joinedProjectsArr,
+          projects: projectsArr.map(p => stubJoinRepoToProject(p)),
         }]]);
       });
     });
@@ -102,6 +98,29 @@ describe('project controller', () => {
       expect(stubSendError.args).to.deep.equal([[res, {
         error: mockError,
       }]]);
+    });
+  });
+});
+
+describe('project parser', () => {
+  it('shouldn\t inject unexpected timestamps', () => {
+    const parsed = parseProject(projectFixture);
+    expect(parsed).to.deep.equal(projectFixture);
+  });
+
+  it('sets default values for timestamps', () => {
+    const projectWithTimestamps = {
+      ...projectFixture,
+      created: { _seconds: 1000 },
+      synced: { _seconds: 2000 },
+      updated: { _seconds: 3000 },
+    };
+    const parsed = parseProject(projectWithTimestamps);
+    expect(parsed).to.deep.equal({
+      ...projectFixture,
+      created: 1000,
+      synced: 2000,
+      updated: 3000,
     });
   });
 });
