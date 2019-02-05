@@ -1,6 +1,6 @@
 {
   "name": "js-personal-api",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "API for managing personal data across various networks and providers.",
   "homepage": "https://github.com/personal-api/core#readme",
   "author": {
