@@ -1,9 +1,13 @@
+import InstagramPlugin from '@personal-api/plugin-instagram';
 /**
  * Import your plugins here.
  */
 
-export default (/* app */) => {
-  /**
-   * Instantiate your plugins here by calling apply(app) on them.
-   */
+export default (app) => {
+  const Instagram = new InstagramPlugin({
+    accessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
+    userId: process.env.INSTAGRAM_USER_ID,
+    count: 2,
+  });
+  Instagram.apply(app);
 };
