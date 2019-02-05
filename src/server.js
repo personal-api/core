@@ -15,7 +15,7 @@ const bootstrap = async () => {
   const app = express();
 
   applyMiddlewares(app);
-  await applyPlugins(app);
+  applyPlugins(app);
   applyRoutes(app);
 
   app.listen(PORT, () => console.log(SERVER_STARTED.replace('$PORT', PORT)));

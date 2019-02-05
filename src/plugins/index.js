@@ -1,11 +1,9 @@
-import InstagramPlugin from '@personal-api/plugin-instagram';
-import handlers from '../api/handlers';
+/**
+ * Import your plugins here.
+ */
 
-export default (app) => {
-  const Instagram = new InstagramPlugin({
-    accessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
-    userId: process.env.INSTAGRAM_USER_ID,
-  });
-
-  Instagram.apply(app, handlers);
+export default (/* app */) => {
+  /**
+   * Instantiate your plugins here by calling apply(app) on them.
+   */
 };
