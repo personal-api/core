@@ -11,6 +11,7 @@ const { DEFAULT_CACHE_TIME } = constants;
 
 export default (app) => {
   app.use(cache(DEFAULT_CACHE_TIME));
+  app.get('/favicon.ico', (req, res) => res.status(204));
   app.use('/composite', getComposite);
   app.use('/metas', getMetas);
   app.use('/profiles', getProfiles);

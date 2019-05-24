@@ -21,6 +21,9 @@
     "sync:repositories": "npm run build && node --require dotenv/config build/bin/syncAllRepositories.js",
     "test": "nyc mocha --require babel-register"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/personal-api/core/issues"

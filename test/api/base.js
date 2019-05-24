@@ -25,7 +25,9 @@ describe('API: base', () => {
     });
 
     it('sets the response message to the Error string', () => {
-      expect(res.json.args[0][0].message).to.equal(mockError.toString());
+      expect(res.json.args[0][0]).to.deep.equal({
+        message: mockError.toString(),
+      });
     });
 
     it('sets the response status code to 500', () => {
