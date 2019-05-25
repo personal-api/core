@@ -1,24 +1,20 @@
-export const sendError = (res, err) => {
-  const message = err.toString();
-
+export const sendError = (res, error) => {
   res.type('json');
   res.status = 500;
   res.json({
     status: 'error',
-    message,
+    error,
   });
 };
 
 export const sendSuccess = (res, result) => {
-  const response = {};
-
-  response.status = 'ok';
-
-  if (result) {
-    response.result = result;
-  }
-
   res.type('json');
   res.status = 200;
+
+  const response = {
+    status: 'ok',
+    ...(result ? { result } : {}),
+  };
+
   res.json(response);
 };

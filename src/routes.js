@@ -1,5 +1,4 @@
-import apicache from 'apicache';
-
+import cache from './utils/getCache';
 import constants from './constants';
 import getComposite from './controllers/composite';
 import getMetas from './controllers/metas';
@@ -8,19 +7,15 @@ import getProjects from './controllers/projects';
 import getQuotes from './controllers/quotes';
 import getRepositories from './controllers/repositories';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const cacheOptions = {
-  debug: process.env.DEBUG_APP,
-  enabled: isProduction,
-};
-const cache = apicache.options(cacheOptions).middleware;
 const { DEFAULT_CACHE_TIME } = constants;
 
 export default (app) => {
-  app.use('/composite', cache(DEFAULT_CACHE_TIME), getComposite);
-  app.use('/metas', cache(DEFAULT_CACHE_TIME), getMetas);
-  app.use('/profiles', cache(DEFAULT_CACHE_TIME), getProfiles);
-  app.use('/projects', cache(DEFAULT_CACHE_TIME), getProjects);
-  app.use('/quotes', cache(DEFAULT_CACHE_TIME), getQuotes);
-  app.use('/repositories', cache(DEFAULT_CACHE_TIME), getRepositories);
+  app.use(cache(DEFAULT_CACHE_TIME));
+  app.get('/favicon.ico', (req, res) => res.status(204));
+  app.use('/composite', getComposite);
+  app.use('/metas', getMetas);
+  app.use('/profiles', getProfiles);
+  app.use('/projects', getProjects);
+  app.use('/quotes', getQuotes);
+  app.use('/repositories', getRepositories);
 };

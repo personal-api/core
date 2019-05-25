@@ -4,16 +4,15 @@ import sinon from 'sinon';
 import { sendError, sendSuccess } from '../../src/api/base';
 import res from '../_fixtures/res';
 
-const sandbox = sinon.createSandbox();
-
-describe('API: base', () => {
+describe.only('API: base', () => {
   beforeEach(() => {
-    sandbox.stub(res, 'json');
-    sandbox.stub(res, 'type');
+    sinon.stub(res, 'json');
+    sinon.stub(res, 'type');
   });
 
   afterEach(() => {
-    sandbox.restore();
+    sinon.restore();
+    res.status = 0;
   });
 
   describe('error template', () => {
@@ -21,11 +20,16 @@ describe('API: base', () => {
     const mockError = new Error(errorMessage);
 
     beforeEach(() => {
-      sendError(res, mockError);
+      sendError(res, { error: mockError });
     });
 
     it('sets the response message to the Error string', () => {
-      expect(res.json.args[0][0].message).to.equal(mockError.toString());
+      expect(res.json.args).to.deep.equal([[{
+        error: {
+          error: mockError,
+        },
+        status: 'error',
+      }]]);
     });
 
     it('sets the response status code to 500', () => {
@@ -48,9 +52,9 @@ describe('API: base', () => {
       });
 
       it('returns simply { status: "ok" } if no data is provided', () => {
-        expect(res.json.args[0][0]).to.deep.equal({
+        expect(res.json.args).to.deep.equal([[{
           status: 'ok',
-        });
+        }]]);
       });
     });
 
@@ -60,7 +64,10 @@ describe('API: base', () => {
       });
 
       it('returns the result in the response', () => {
-        expect(res.json.args[0][0].result).to.deep.equal(mockResult);
+        expect(res.json.args).to.deep.equal([[{
+          result: mockResult,
+          status: 'ok',
+        }]]);
       });
 
       it('sets the status code to 200', () => {
