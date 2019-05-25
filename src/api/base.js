@@ -10,8 +10,11 @@ export const sendError = (res, error) => {
 export const sendSuccess = (res, result) => {
   res.type('json');
   res.status = 200;
-  res.json({
+
+  const response = {
     status: 'ok',
-    result,
-  });
+    ...(result ? { result } : {}),
+  };
+
+  res.json(response);
 };
