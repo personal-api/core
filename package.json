@@ -43,7 +43,7 @@
     "rimraf": "^2.6.2"
   },
   "devDependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-istanbul": "^5.0.1",
