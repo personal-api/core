@@ -35,7 +35,7 @@
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.0.4",
     "lodash": "^4.17.10",
